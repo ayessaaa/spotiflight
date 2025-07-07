@@ -1,38 +1,51 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import Logo from './components/Logo'
-import BoardingPass from './components/BoardingPass'
-import axios from "axios"
+import { use, useEffect, useState } from "react";
+import "./App.css";
+import Logo from "./components/Logo";
+import BoardingPass from "./components/BoardingPass";
+import axios from "axios";
 
-const API_URL = "https://f0fc-120-29-68-8.ngrok-free.app"
+const API_URL = "https://spotiflight.yessa.hackclub.app";
 
 function App() {
+  const [tracks, setTracks] = useState([]);
+  const [isLogin, setIsLogin] = useState(false);
 
-  const [tracks, setTracks] = useState([])
-
-  useEffect(()=>{
-    async function getSpotifyTop(query) {
-    try {
-      const res = await axios.get(API_URL + `/spotify-search`, {
-        
-      });
-      console.log(res.data);
-      setTracks(res.data.items);
-    } catch (err) {
-      console.error(err.response?.data || err.message);
+  useEffect(() => {
+    if (!isLogin) return;
+    async function getSpotifyTop() {
+      try {
+        const res = await axios.get(API_URL + `/spotify-search`, {});
+        console.log(res.data);
+        setTracks(res.data.items);
+      } catch (err) {
+        console.error(err.response?.data || err.message);
+      }
     }
-  }
-  getSpotifyTop()
-  }, [])
+    getSpotifyTop();
+  }, [isLogin]);
 
-  
+  // window.location.href = "https://spotiflight.yessa.hackclub.app/login";
+
+  async function getLogin() {
+      try {
+        const res = await axios.get(API_URL + `/login`, {});
+        console.log(res.data);
+      } catch (err) {
+        console.error(err.response?.data || err.message);
+      }
+    }
 
   return (
     <>
-    <Logo/>
-    <BoardingPass tracks={tracks}/>
+      <button onClick={getLogin}>log in to spotify</button>
+      <Logo />
+      {isLogin && (
+        <>
+          <BoardingPass tracks={tracks} />
+        </>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

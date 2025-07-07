@@ -4,6 +4,8 @@ import randomstring from "randomstring";
 import querystring from "querystring";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+
 dotenv.config();
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -12,6 +14,7 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
@@ -22,7 +25,7 @@ app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
-var redirect_uri = "https://f0fc-120-29-68-8.ngrok-free.app/callback";
+var redirect_uri = "https://spotiflight.yessa.hackclub.app/callback";
 
 app.get("/login", function (req, res) {
   var state = randomstring.generate(16);
@@ -78,17 +81,16 @@ app.get("/callback", async (req, res) => {
       secure: true,
       sameSite: "Lax",
     });
-    res.send({
-      access_token,
-      refresh_token,
-    });
+    res.redirect(
+    "https://spotiflight-cyan.vercel.app/"
+  );
   } catch (err) {
     console.error(err);
     res.status(500).send("Error");
   }
 });
 
-app.get("/top-songs", async (req, res) => {
+app.get("/spotify-search", async (req, res) => {
   try {
     const token = req.cookies.spotify_token;
     const response = await axios.get(
