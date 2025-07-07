@@ -1,4 +1,4 @@
-function BoardingPass() {
+function BoardingPass({tracks}) {
   return (
     <div className="bg-white w-150 rounded-3xl mx-auto relative overflow-hidden shadow-xl">
       <img
