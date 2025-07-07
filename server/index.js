@@ -14,7 +14,12 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5173",
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
@@ -25,7 +30,7 @@ app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
-var redirect_uri = "https://spotiflight.yessa.hackclub.app/callback";
+var redirect_uri = "http://127.0.0.1:3000/callback";
 
 app.get("/login", function (req, res) {
   var state = randomstring.generate(16);
@@ -75,15 +80,21 @@ app.get("/callback", async (req, res) => {
     );
 
     const { access_token, refresh_token } = response.data;
+    // res.cookie("spotify_token", access_token, {
+    //   httpOnly: false,
+    //   maxAge: 3600 * 1000,
+    //   secure: true,
+    //   sameSite: "None",
+    //   domain:".yessa.hackclub.app"
+    // });
     res.cookie("spotify_token", access_token, {
       httpOnly: false,
       maxAge: 3600 * 1000,
-      secure: true,
+      secure: false,
       sameSite: "Lax",
     });
-    res.redirect(
-    "https://spotiflight-cyan.vercel.app/"
-  );
+
+    res.redirect("http://127.0.0.1:5173/");
   } catch (err) {
     console.error(err);
     res.status(500).send("Error");
