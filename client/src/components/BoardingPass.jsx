@@ -1,17 +1,23 @@
-function BoardingPass({tracks}) {
+function BoardingPass({ tracks, boardingPassRef }) {
   return (
-    <div className="bg-white w-150 rounded-3xl mx-auto relative overflow-hidden shadow-xl">
-      <img
-        src="./imgs/paper.png"
-        className="absolute inset-0 w-full h-full object-cover mix-blend-multiply pointer-events-none opacity-60"
-        alt=""
-      />
+    <div
+      id="boarding-pass"
+      ref={boardingPassRef}
+      className="w-150 rounded-3xl mx-auto relative overflow-hidden shadow-xl"
+      style={{
+        backgroundImage: 'url("/imgs/paper.png")',
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundBlendMode: "multiply",
+      }}
+    >
       <div className="relative mix-blend-multiply">
-        <div className="bg-white w-150 rounded-3xl mx-auto">
-          <div className="bg-[#779DEE] h-15 w-full rounded-t-3xl flex pt-3 pl-3 pr-9 gap-4 ">
-            <img src="./imgs/spotify.png" className="size-13 mt-3"></img>
-            <div className="flex-1">
-              <p className=" text-white font-semibold text-xl">BOARDING PASS</p>
+        <div className=" w-150 rounded-3xl mx-auto">
+          <div className="bg-[#779DEE] h-15 w-full rounded-t-3xl flex pt-2 pl-3 pr-9 gap-4 ">
+            <img src="./imgs/spotify.png" className="size-13 mt-3 z-20 absolute "></img>
+            <div className="flex-1 pt-1">
+              <p className=" text-white font-semibold text-xl pl-16">BOARDING PASS</p>
             </div>
             <div className="text-right">
               <p className=" text-white font-semibold text-xl">SPOTIFLIGHT</p>
@@ -20,8 +26,8 @@ function BoardingPass({tracks}) {
               </p>
             </div>
           </div>
-          <div className="bg-[#779DEE] h-13 w-80 rounded-br-4xl pl-20">
-            <p className="text-[#3E65BA] -mt-2 text-xs">Passenger</p>
+          <div className="bg-[#779DEE] h-14 w-80 rounded-br-4xl pl-20 z-10">
+            <p className="text-[#3E65BA] -mt-3 text-xs">Passenger</p>
             <p className=" text-white font-semibold text-lg -mt-1">AYE</p>
           </div>
           <div className="flex px-17 mt-7">
@@ -60,10 +66,25 @@ function BoardingPass({tracks}) {
             <p className="text-xs">Boarding Tracks</p>
             <p className="text-xs">Duration</p>
 
-            {tracks.map((track, i)=>(<><p key={i+1} className="font-bold">{i+1}</p>
-            <p key={track.name}>{track.name} - {track.artists.map((a) => a.name).join(", ")}</p>
-            <p key={track.duration_ms} className="text-[#779DEE]">{`${String(Math.floor(track.duration_ms / 60000)).padStart(1, '0')}:${String(Math.floor((track.duration_ms % 60000) / 1000)).padStart(2, '0')}`}</p></>))}
-
+            {tracks.map((track, i) => (
+              <>
+                <p key={i + 1} className="font-bold">
+                  {i + 1}
+                </p>
+                <p key={track.name}>
+                  {track.name} - {track.artists.map((a) => a.name).join(", ")}
+                </p>
+                <p
+                  key={track.duration_ms}
+                  className="text-[#779DEE]"
+                >{`${String(Math.floor(track.duration_ms / 60000)).padStart(
+                  1,
+                  "0"
+                )}:${String(
+                  Math.floor((track.duration_ms % 60000) / 1000)
+                ).padStart(2, "0")}`}</p>
+              </>
+            ))}
           </div>
 
           <img src="./imgs/dash2.png" className="mt-5"></img>
@@ -110,14 +131,14 @@ function BoardingPass({tracks}) {
                 <p className="font-bold -mt-0.5">21B</p>
               </div>
               <div>
-                <img src="./imgs/barcode.png"></img>
+                <img src="./imgs/barcode2.png"></img>
               </div>
             </div>
           </div>
-          <div className="h-11 bg-[#779DEE] rounded-b-3xl mt-3 items-center">
-            <div className="flex  mx-auto w-fit h-fit py-2 gap-1">
-              <img src="./imgs/spotifywhite.png" className="size-7"></img>
-              <p className="text-center text-white font-bold my-auto text-sm">
+          <div className="h-8 bg-[#779DEE] rounded-b-3xl mt-3 items-center">
+            <div className=" mx-auto w-fit my-auto gap-1 items-center h-full">
+              
+              <p className="text-center text-white font-bold my-auto text-sm h-fit ">
                 spotiflight.yessa.hackclub.app
               </p>
             </div>

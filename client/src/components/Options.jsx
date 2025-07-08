@@ -1,7 +1,7 @@
 import Button from "./Button";
 import Card from "./Card";
 
-function Options() {
+function Options({handleCaptureClick,}) {
   return (
     <div className="flex flex-col gap-5">
       <Card label="type" options={["top tracks", "top artists"]} />
@@ -10,7 +10,7 @@ function Options() {
       <div className="flex flex-col gap-2 mt-3">
 
       <Button text="generate boarding pass" className="bg-[#597BC5] text-white" />
-      <Button text="download" className="bg-white text-[#597BC5]" />
+      <Button text="download" className="bg-white text-[#597BC5]" onClick={handleCaptureClick} />
       </div>
     </div>
   );
