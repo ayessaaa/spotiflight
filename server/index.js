@@ -105,7 +105,7 @@ app.get("/spotify-search", async (req, res) => {
   try {
     const token = req.cookies.spotify_token;
     const response = await axios.get(
-      "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5",
+      "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5",
       {
         headers: {
           Authorization: `Bearer ${token}`,

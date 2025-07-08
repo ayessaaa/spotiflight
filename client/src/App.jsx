@@ -3,6 +3,7 @@ import "./App.css";
 import Logo from "./components/Logo";
 import BoardingPass from "./components/BoardingPass";
 import axios from "axios";
+import Options from "./components/Options";
 
 const API_URL = "http://127.0.0.1:3000";
 
@@ -10,15 +11,17 @@ function App() {
   const [tracks, setTracks] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
 
-    async function getSpotifyTop() {
-      try {
-        const res = await axios.get(API_URL + `/spotify-search`, {withCredentials: true,});
-        console.log(res.data);
-        setTracks(res.data.items);
-      } catch (err) {
-        console.error(err.response?.data || err.message);
-      }
+  async function getSpotifyTop() {
+    try {
+      const res = await axios.get(API_URL + `/spotify-search`, {
+        withCredentials: true,
+      });
+      console.log(res.data);
+      setTracks(res.data.items);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
     }
+  }
 
   async function getLogin() {
     // try {
@@ -35,7 +38,10 @@ function App() {
       <button onClick={getLogin}>log in to spotify</button>
       <button onClick={getSpotifyTop}>get spotify</button>
       <Logo />
-      <BoardingPass tracks={tracks} />
+      <div className="flex w-fit gap-10 mx-auto">
+        <BoardingPass tracks={tracks} />
+        <Options />
+      </div>
     </>
   );
 }
