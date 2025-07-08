@@ -1,4 +1,18 @@
-function Card({ label, options, type = "options" }) {
+function Card({
+  label,
+  options,
+  type = "options",
+  answer,
+  setAnswer,
+  from,
+  setFrom,
+  to,
+  setTo,
+  fromAbbr,
+  setFromAbbr,
+  toAbbr,
+  setToAbbr,
+}) {
   return (
     <div className="bg-white w-80 rounded-3xl">
       <div className="bg-[#7195E1] h-10 w-full rounded-t-3xl"></div>
@@ -9,9 +23,15 @@ function Card({ label, options, type = "options" }) {
       {type === "options" ? (
         <div className="flex text-center w-full px-3 py-4 gap-2">
           {options.map((option) => (
-            <div className="bg-blue-100 w-full py-3 px-3 rounded-3xl">
+            <button
+              key={option}
+              className={`${
+                answer == option ? "bg-blue-100" : "hover:bg-blue-50"
+              } w-full py-3 px-3 rounded-3xl cursor-pointer transition-all `}
+              onClick={()=>setAnswer(option)}
+            >
               <p className="text-sm text-[#7195E1] font-bold">{option}</p>
-            </div>
+            </button>
           ))}
         </div>
       ) : (
@@ -22,6 +42,8 @@ function Card({ label, options, type = "options" }) {
               <input
                 className="bg-[#7195E1]/20 uppercase w-40 px-2 rounded placeholder:text-[#7195E1]/60 text-[#7195E1]"
                 placeholder="MANILA, PHL"
+                value={from}
+                onChange={(e) => setFrom(e.target.value)}
               ></input>
             </div>
             <div>
@@ -29,6 +51,8 @@ function Card({ label, options, type = "options" }) {
               <input
                 className="bg-[#7195E1]/20 uppercase w-15 px-2 rounded placeholder:text-[#7195E1]/60 text-[#7195E1]"
                 placeholder="MNL"
+                value={fromAbbr}
+                onChange={(e) => setFromAbbr(e.target.value)}
               ></input>
             </div>
           </div>
@@ -38,6 +62,8 @@ function Card({ label, options, type = "options" }) {
               <input
                 className="bg-[#7195E1]/20 uppercase w-40 px-2 rounded placeholder:text-[#7195E1]/60 text-[#7195E1]"
                 placeholder="VERMONT, US"
+                value={to}
+                onChange={(e) => setTo(e.target.value)}
               ></input>
             </div>
             <div>
@@ -45,6 +71,8 @@ function Card({ label, options, type = "options" }) {
               <input
                 className="bg-[#7195E1]/20 uppercase w-15 px-2 rounded placeholder:text-[#7195E1]/60 text-[#7195E1]"
                 placeholder="VT"
+                value={toAbbr}
+                onChange={(e) => setToAbbr(e.target.value)}
               ></input>
             </div>
           </div>

@@ -103,9 +103,16 @@ app.get("/callback", async (req, res) => {
 
 app.get("/spotify-search", async (req, res) => {
   try {
+    const type = req.query.type === "top artists" ? "artists" : "tracks";
+    const timeRange =
+      req.query.time_range === "1 month"
+        ? "short_term"
+        : req.query.time_range === "6 months"
+        ? "medium_term"
+        : "long_term";
     const token = req.cookies.spotify_token;
     const response = await axios.get(
-      "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=5",
+      `https://api.spotify.com/v1/me/top/${type}?time_range=${timeRange}&limit=5`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

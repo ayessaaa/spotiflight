@@ -1,16 +1,54 @@
 import Button from "./Button";
 import Card from "./Card";
 
-function Options({handleCaptureClick,}) {
+function Options({
+  handleCaptureClick,
+  type,
+  setType,
+  timeRange,
+  setTimeRange,
+  from,
+  setFrom,
+  fromAbbr,
+  setFromAbbr,
+  to,
+  setTo,
+  toAbbr,
+  setToAbbr,
+}) {
   return (
     <div className="flex flex-col gap-5">
-      <Card label="type" options={["top tracks", "top artists"]} />
-      <Card label="time range" options={["1 month", "6 months", "1 year"]} />
-      <Card label="travel info" options={["1 month", "6 months", "1 year"]} type="form"/>
+      <Card
+        label="type"
+        options={["top tracks", "top artists"]}
+        answer={type}
+        setAnswer={setType}
+      />
+      <Card
+        label="time range"
+        options={["1 month", "6 months", "1 year"]}
+        answer={timeRange}
+        setAnswer={setTimeRange}
+      />
+      <Card
+        label="travel info"
+        options={["1 month", "6 months", "1 year"]}
+        type="form"
+        from={from}
+        setFrom={setFrom}
+        fromAbbr={fromAbbr}
+        setFromAbbr={setFromAbbr}
+        to={to}
+        setTo={setTo}
+        toAbbr={toAbbr}
+        setToAbbr={setToAbbr}
+      />
       <div className="flex flex-col gap-2 mt-3">
-
-      <Button text="generate boarding pass" className="bg-[#597BC5] text-white" />
-      <Button text="download" className="bg-white text-[#597BC5]" onClick={handleCaptureClick} />
+        <Button
+          text="download"
+          className="w-full"
+          onClick={handleCaptureClick}
+        />
       </div>
     </div>
   );
