@@ -60,25 +60,10 @@ function BoardingPass({tracks}) {
             <p className="text-xs">Boarding Tracks</p>
             <p className="text-xs">Duration</p>
 
-            <p className="font-bold">1</p>
-            <p>I Love You, I'm Sorry - Gracie Abrams</p>
-            <p className="text-[#779DEE]">3:07</p>
+            {tracks.map((track, i)=>(<><p key={i+1} className="font-bold">{i+1}</p>
+            <p key={track.name}>{track.name} - {track.artists.map((a) => a.name).join(", ")}</p>
+            <p key={track.duration_ms} className="text-[#779DEE]">{`${String(Math.floor(track.duration_ms / 60000)).padStart(1, '0')}:${String(Math.floor((track.duration_ms % 60000) / 1000)).padStart(2, '0')}`}</p></>))}
 
-            <p className="font-bold">2</p>
-            <p>Someday - The Ridleys</p>
-            <p className="text-[#779DEE]">3:23</p>
-
-            <p className="font-bold">3</p>
-            <p>Passenger Seat - Stephen Speaks</p>
-            <p className="text-[#779DEE]">3:35</p>
-
-            <p className="font-bold">4</p>
-            <p>Tsunami - NIKI</p>
-            <p className="text-[#779DEE]">4:29</p>
-
-            <p className="font-bold">5</p>
-            <p>Take A Chance With Me - NIKI</p>
-            <p className="text-[#779DEE]">3:11</p>
           </div>
 
           <img src="./imgs/dash2.png" className="mt-5"></img>
